@@ -1,0 +1,31 @@
+{
+  "name": "first-example",
+  "version": "1.0.1",
+  "description": "Exemplo de uso de filas com RabbitMQ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "AMQP",
+    "RabbitMQ",
+    "Queue",
+    "Filas",
+    "JS",
+    "JavaScript",
+    "NodeJS",
+    "Express",
+    "AMQPLIB",
+    "Docker"
+  ],
+  "author": "Alan Alencar",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
