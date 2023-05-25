@@ -10,6 +10,8 @@ Também terá o exemplo de um microserviço que será disparado pela API após s
 
 Por fim, dois outros microserviços serão criados para fazerem as vezes do _Consumer_ atuando em duas filas distintas, fechando de ponta a ponta o conceito de uso de filas com o _RabbitMQ_ e construindo um bom exemplo, ainda que simples para você aprimorar seu aprendizado e conhecimento.
 
+![RabbitMQ](./assets/rabbitmq-overview.png)
+
 ---
 
 ## Cenário
@@ -46,11 +48,13 @@ Você pode instalar o RabbitMQ localmente na sua estação de desenvolvimento, o
 
 Todavia vou encoraja-lo a usar uma imagem __Docker__ de forma a facilitar ainda mais a montagem do seu ambiente de desenvolvimento e testes. Mais detalhes sobre o Docker, você poderá encontrar no [Site Oficial](https://www.docker.com) do produto. Baixe a versão adequada para seu sistema operacional e posteriormente, selecione uma imagem do RabbitMQ.
 
+![Docker](./assets/docker.png)
+
 ---
 
 ## Estrutura do projeto
 
-![mapa](assets/map.png)
+![mapa](./assets/map.png)
 
 ---
 
@@ -114,15 +118,15 @@ __Importante:__ A routing key que é informada na chave _logType_ do jSon obriga
 
 Abaixo as principais falhas encontradas na execução deste repositório na sua configuração local:
 
-__1__: _Ao chamar a API /log não está sendo possível comunicar com o repositório do RabbitMQ do meu ambiente Docker._
+>__1__: _Ao chamar a API /log não está sendo possível comunicar com o repositório do RabbitMQ do meu ambiente Docker._
 
 Verifique se o mapeamento da porta local _5672_ está corretamente feito com a mesma porta no ambiente do Docker. Esta é uma falha bem comum e elas precisam estar neste formato.
 
-__2__: _Não estou conseguindo baixar uma imagem do RabbitMQ no meu Docker Desktop que funcione. Qual devo baixar?_
+>__2__: _Não estou conseguindo baixar uma imagem do RabbitMQ no meu Docker Desktop que funcione. Qual devo baixar?_
 
 No desenvolvimento deste projeto foi utilizada a imagem `rabbitmq:3.12.0-rc.2-management-alpine` pesquisada no próprio Docker Desktop.
 
-__3__: _Como verificar se minha imagem Docker do RabbitMQ está rodando na minha máquina corretamente?_
+>__3__: _Como verificar se minha imagem Docker do RabbitMQ está rodando na minha máquina corretamente?_
 
 Você pode verificar no _Docker Desktop_ a execução da imagem de maneira bem fácil e simples. Você deve encontrar no log alguma instrução parecida com a listada abaixo.
 
@@ -136,7 +140,10 @@ Você pode verificar no _Docker Desktop_ a execução da imagem de maneira bem f
 2023-05-21 11:00:45 2023-05-21 14:00:45.603323+00:00 [info] <0.588.0>  * rabbitmq_web_dispatch
 2023-05-21 11:00:45 2023-05-21 14:00:45.603323+00:00 [info] <0.588.0>  * rabbitmq_management_agent
 ```
+![Docker log](./assets/docker-log.png)
 
 Uma outra forma é abrindo a console do RabbitMQ no seu navegador. Se for apresentado a tela de login, é sinal positivo que o ambiente está _up_ e vocë poderá consumir via protocolo _amqp_ normalmente. O usuário e senha padrão é `guest` e `guest`.
+
+![Docker Login](./assets/rabbitmq-login.png)
 
 _Alan Alencar, 2023_
