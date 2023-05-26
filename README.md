@@ -4,11 +4,11 @@
 
 Exemplo de uso de filas usando o protocolo AMQP e o RabbitMQ. Neste projeto será criado uma API Rest que irá receber uma chamada para inclusão de uma mensagem de log (exemplo mais típico).
 
-Esta mensagem de log será enviada para um exchange que posteriormente será associado a uma fila do tipo `Direct` definindo a `Routing Key` para elas.
+Esta mensagem de log será enviada para um exchange que posteriormente será associado a filas do tipo `Direct` definindo uma `Routing Key` para cada uma delas.
 
-Também terá o exemplo de um microserviço que será disparado pela API após sua chamada para fazer o papel de _Producer_ enviando as mensagens via um _Channel_ para o _Exchange_.
+Também terá o exemplo de um microserviço que será disparado pela API após sua chamada para fazer o papel de `Producer` enviando as mensagens via um _Channel_ para o _Exchange_.
 
-Por fim, dois outros microserviços serão criados para fazerem as vezes do _Consumer_ atuando em duas filas distintas, fechando de ponta a ponta o conceito de uso de filas com o _RabbitMQ_ e construindo um bom exemplo, ainda que simples para você aprimorar seu aprendizado e conhecimento.
+Por fim, dois outros microserviços serão criados para fazerem as vezes do `Consumer` atuando em três filas distintas, fechando de ponta a ponta o conceito de uso de filas com o _RabbitMQ_ e construindo um bom exemplo, ainda que simples para você aprimorar seu aprendizado e conhecimento.
 
 ![RabbitMQ](./assets/rabbitmq-overview.png)
 
@@ -16,13 +16,13 @@ Por fim, dois outros microserviços serão criados para fazerem as vezes do _Con
 
 ## Cenário
 
-Uma aplicação fictícia rodando em vários clientes na modalidade on-premises ou cloud, precisa notificar a uma central de controle de todos os eventos de sucesso, alerta ou falhas catastróficas quando vão consumir serviços de API contratadas separadamente ao pacote principal da aplicação.
+Uma aplicação fictícia rodando em vários clientes na modalidade on-premises, ou em um cloud privado, precisa notificar a uma central de controle todos os eventos de sucesso, alerta ou falhas catastróficas quando vão consumir serviços de API contratadas separadamente ao pacote principal da aplicação.
 
 As chamadas com __sucesso__ devem ser encaminhadas ao time de _pós vendas_ para trabalhar o encantamento do cliente e também o time _financeiro_ que vai fazer a cobrança de uso dos serviços.
 
-Já as mensagens de __alerta__ vão para uma fila específica que será acessada pelo time de _suporte 1o nível_ e por fim as mensagens de __falhas catastróficas__ para o time de desenvolvimento na fábrica de software.
+Já as mensagens de __alertas__ vão para uma fila específica que será acessada pelo time de _suporte 1o nível_ e por fim as mensagens de __falhas catastróficas__ para o time de desenvolvimento na fábrica de software atuar na sua correção.
 
-Um modelo fictício mas com um desenho bem provável para encaixar com vários cenários potencialmente reais.
+Um modelo fictício mas com um desenho bem provável de encaixar com vários cenários potencialmente reais.
 
 ---
 
@@ -110,7 +110,7 @@ Para este projeto iremos trabalhar com filas do tipo __Direct__, todas elas com 
     "message": "Not permission to execute call to API."
 }
 ```
-__Importante:__ A routing key que é informada na chave _logType_ do jSon obrigatoriamente necessita estar em caixa baixa para que seja validada pelo binding no RabbitMQ. Pode ser uma boa idéia você implementar uma camada a mais de segurança para sempre deixar todo o conteúdo em caixa baixa usando \<string\>._toLowerCase()_ para isto.
+__Importante:__ A routing key que é informada na chave _logType_ do jSon obrigatoriamente necessita estar em caixa baixa para que seja validada pelo binding no RabbitMQ. Pode ser uma boa idéia você implementar uma camada a mais de segurança para sempre deixar todo o conteúdo em caixa baixa usando `<string>._toLowerCase()` para isto.
 
 ---
 
@@ -144,6 +144,30 @@ Você pode verificar no _Docker Desktop_ a execução da imagem de maneira bem f
 
 Uma outra forma é abrindo a console do RabbitMQ no seu navegador. Se for apresentado a tela de login, é sinal positivo que o ambiente está _up_ e vocë poderá consumir via protocolo _amqp_ normalmente. O usuário e senha padrão é `guest` e `guest`.
 
-![Docker Login](./assets/rabbitmq-login.png)
+![RabbitMQ Login](./assets/rabbitmq-login.png)
+
+Conexão sendo registrada na console do RabbitMQ.
+
+![RabbitMQ Connections](./assets/rabbitmq-connections.png)
+
+Detalhes da conexão no RabbitMQ.
+
+![RabbitMQ Connections](./assets/rabbitmq-connections-view.png)
+
+Visão dos canais (channels) sendo usado pelo microserviço.
+
+![RabbitMQ Connections](./assets/rabbitmq-channels.png)
+
+Visão dos canais (channels) sendo usado pelo microserviço agora com detalhes do consumo e das estatísticas.
+
+![RabbitMQ Connections](./assets/rabbitmq-channels-view.png)
+
+Exchange usado no exemplo sendo exibido no RabbitMQ.
+
+![RabbitMQ Exchanges](./assets/rabbitmq-exchange.png)
+
+Queue no RabbitMQ.
+
+![RabbitMQ Queue](./assets/rabbitmq-queue.png)
 
 _Alan Alencar, 2023_
