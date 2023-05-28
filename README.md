@@ -24,6 +24,8 @@ Já as mensagens de __alertas__ vão para uma fila específica que será acessad
 
 Um modelo fictício mas com um desenho bem provável de encaixar com vários cenários potencialmente reais.
 
+![Desenho](./assets/desenho.png)
+
 ---
 
 ## Pré-requisitos
