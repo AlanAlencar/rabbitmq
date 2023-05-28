@@ -4,7 +4,10 @@
   "description": "Exemplo de uso de filas com RabbitMQ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node ./bin/server",
+    "success": "node ./bin/consumerSuccess",
+    "warning": "node ./bin/consumerWarning",
+    "fail": "node ./bin/consumerFail"
   },
   "keywords": [
     "AMQP",

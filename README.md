@@ -114,6 +114,85 @@ __Importante:__ A routing key que é informada na chave _logType_ do jSon obriga
 
 ---
 
+## Configurando e iniciando o projeto
+
+Após efetuar o clone ou copiar os arquivos para sua estação de trabalho, vá até o diretório onde estão os arquivos e digite o comando para baixar os módulos JS. Aqui estou levando em consideração que você já tem instalado o NodeJS, o NPM e o Docker com a imagem do RabbitMQ configurada e UP.
+
+Na raiz do projeto digite
+
+```bash
+npm install
+```
+
+Após a instalação dos pacotes, vamos iniciar o servidor que vai receber o consumo da API pela aplicação `producer` que está no diretório _./bin_ aguardando ser iniciada.
+
+Na raiz do projeto digite
+
+```bash
+npm run server
+```
+
+Se tudo transcorreu corretamente, o servidor está iniciado na porta 6001 como pode ser constatado na console do nodeJS. Se você precisar configurar outra porta, acesse o código fonte na pasta _./bin_ e modifique na instrução `app.listen()`.
+
+Vamos iniciar também os microserviços de consumo das filas. Abra uma sessão separada de terminal para cada uma delas para que você possa acompanhar o consumo e a exibição na console.
+
+Na raiz do projeto digite
+```bash
+npm run success  
+```
+```bash
+npm run warning
+```
+```bash
+npm run fail
+```
+
+Agora que já temos o barramento que vai receber as solicitações via API, vamos iniciar o `postman` ou a aplicação similar que você usa para chamar a API passando um mensagem aleatória.
+
+Você pode enviar quantas mensagens quiser clicando no botão _Send_ mas deve alterar o `logType` para direcionar para a fila correta e trocar a descrição da mensagem para ver acoando na console, pois esta chave no _jSon_ é a nossa Routing Key. Acima você tem uma informação sobre as filas, confira lá.
+
+```json
+{
+    "date": "2023-05-26T22:37:00",
+    "clientID": 7635483,
+    "serviceID": "L-A877V1",
+    "logType": "success",
+    "message": "Login success ..."
+}
+```
+
+Enviando mensagem de Sucesso pelo _Postman_ 
+
+![Success](./assets/post-success.png)
+
+Ao enviar a mensagem para o barramento da API, ela será tratada e endereçada para o barramento do _RabbitMQ_ para o exchange padrão configurado na aplicação. A constatação do sucesso pode ser conferida na tela do Postman que recebeu http code 200 como resposta e na console de execução do server sendo ecoado na tela, conforme exemplo abaixo.
+
+![Success](./assets/console-success.png)
+
+Em questões de segundos, o microserviço que monitora a fila com Routing Key _success_ vai consumi-la e simular um processamento simplesmente ecoando na tela o _json_ recebido. Aqui é onde você implementa a lógica que você precisa para seu negócio.
+
+![Success](./assets/micro-success.png)
+
+A seguir, telas mostrando a simulação das outras duas routing keys mapeadas no exemplo.
+
+![Warning](./assets/post-warning.png)
+
+![Warning](./assets/console-warning.png)
+
+![Warning](./assets/micro-warning.png)
+
+__Atenção:__ _As mensagens não são necessariamente as mesmas pois os prints foram sendo retirados durantes os testes da aplicação, mas são ações reais de execução._
+
+![Warning](./assets/post-fail.png)
+
+![Warning](./assets/console-fail.png)
+
+![Warning](./assets/micro-fail.png)
+
+Teste quantas vezes quiser, e veja como é robusto esta arquitetura. Divirta-se.
+
+---
+
 ## Principais falhas
 
 Abaixo as principais falhas encontradas na execução deste repositório na sua configuração local:
